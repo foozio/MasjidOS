@@ -1,7 +1,12 @@
 {
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/upload/route": "app/api/upload/route.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/kegiatan/page": "app/dashboard/kegiatan/page.js",
+  "/dashboard/pengumuman/page": "app/dashboard/pengumuman/page.js",
+  "/dashboard/dokumen/page": "app/dashboard/dokumen/page.js",
+  "/dashboard/inventaris/page": "app/dashboard/inventaris/page.js",
   "/dashboard/audit/page": "app/dashboard/audit/page.js",
+  "/dashboard/anggota/page": "app/dashboard/anggota/page.js",
   "/dashboard/settings/page": "app/dashboard/settings/page.js"
 }
