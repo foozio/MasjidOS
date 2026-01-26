@@ -55,14 +55,47 @@ export default function SettingsPage() {
                             <div>
                                 <label className="block text-sm font-medium text-neutral-700 mb-1.5">Logo Masjid</label>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center">
+                                    <div className="w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center overflow-hidden relative">
+                                        {/* Helper to show current logo if available - would need real data integration */}
                                         <Building2 className="w-10 h-10 text-primary-600" />
                                     </div>
                                     <div>
-                                        <button type="button" className="btn-secondary btn-sm">
-                                            <Upload className="w-4 h-4" />
-                                            Ganti Logo
-                                        </button>
+                                        <label className="btn-secondary btn-sm cursor-pointer relative overflow-hidden">
+                                            <Upload className="w-4 h-4 mr-2" />
+                                            {isSaving ? 'Uploading...' : 'Ganti Logo'}
+                                            <input
+                                                type="file"
+                                                className="absolute inset-0 opacity-0 cursor-pointer"
+                                                accept="image/*"
+                                                disabled={isSaving}
+                                                onChange={async (e) => {
+                                                    if (e.target.files && e.target.files[0]) {
+                                                        const file = e.target.files[0]
+                                                        setIsSaving(true)
+                                                        try {
+                                                            const { url } = await import('@vercel/blob/client').then(m => m.upload(file.name, file, {
+                                                                access: 'public',
+                                                                handleUploadUrl: '/api/upload',
+                                                            }))
+
+                                                            const formData = new FormData()
+                                                            formData.append('logoUrl', url)
+
+                                                            const { updateTenantLogo } = await import('@/lib/actions')
+                                                            const result = await updateTenantLogo(formData)
+
+                                                            if (result.error) throw new Error(result.error)
+                                                            alert('Logo berhasil diperbarui!')
+                                                        } catch (error) {
+                                                            console.error('Failed to update logo:', error)
+                                                            alert('Gagal mengupdate logo')
+                                                        } finally {
+                                                            setIsSaving(false)
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </label>
                                         <p className="text-xs text-neutral-500 mt-2">PNG, JPG hingga 2MB</p>
                                     </div>
                                 </div>

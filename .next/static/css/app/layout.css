@@ -1381,6 +1381,9 @@ body{
 .h-9{
   height: 2.25rem;
 }
+.h-full{
+  height: 100%;
+}
 .min-h-\[200px\]{
   min-height: 200px;
 }
@@ -1700,6 +1703,9 @@ body{
 }
 .border-dashed{
   border-style: dashed;
+}
+.border-none{
+  border-style: none;
 }
 .border-neutral-100{
   --tw-border-opacity: 1;
@@ -2095,11 +2101,18 @@ body{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
+.text-primary-500{
+  --tw-text-opacity: 1;
+  color: rgb(20 184 166 / var(--tw-text-opacity, 1));
+}
 .line-through{
   text-decoration-line: line-through;
 }
 .opacity-60{
   opacity: 0.6;
+}
+.opacity-0{
+  opacity: 0;
 }
 .shadow-2xl{
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);

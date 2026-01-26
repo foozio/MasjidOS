@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server'
 import { getDonationsByTenant, createDonation } from '@/lib/queries'
-
-const DEMO_TENANT_ID = '11111111-1111-1111-1111-111111111111'
+import { getAuthContext } from '@/lib/api-utils'
 
 export async function GET(request: Request) {
     try {
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
         const { searchParams } = new URL(request.url)
         const limit = parseInt(searchParams.get('limit') || '50')
 
-        const donations = await getDonationsByTenant(DEMO_TENANT_ID, limit)
+        const donations = await getDonationsByTenant(auth.tenantId, limit)
         return NextResponse.json(donations)
     } catch (error) {
         console.error('Error fetching donations:', error)
@@ -18,6 +20,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
         const body = await request.json()
         const { donorName, donorEmail, amount, isAnonymous, message } = body
 
@@ -26,7 +31,7 @@ export async function POST(request: Request) {
         }
 
         const donation = await createDonation({
-            tenantId: DEMO_TENANT_ID,
+            tenantId: auth.tenantId,
             donorName: isAnonymous ? null : donorName,
             donorEmail: isAnonymous ? null : donorEmail,
             amount,

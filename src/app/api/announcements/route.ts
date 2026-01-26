@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server'
 import { getAnnouncementsByTenant } from '@/lib/queries'
-
-const DEMO_TENANT_ID = '11111111-1111-1111-1111-111111111111'
+import { getAuthContext } from '@/lib/api-utils'
 
 export async function GET(request: Request) {
     try {
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
         const { searchParams } = new URL(request.url)
         const publicOnly = searchParams.get('public') === 'true'
 
-        const announcements = await getAnnouncementsByTenant(DEMO_TENANT_ID, publicOnly)
+        const announcements = await getAnnouncementsByTenant(auth.tenantId, publicOnly)
         return NextResponse.json(announcements)
     } catch (error) {
         console.error('Error fetching announcements:', error)

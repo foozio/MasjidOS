@@ -11,6 +11,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "@types/bcryptjs": "^2.4.6",
+    "@vercel/blob": "^2.0.1",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",

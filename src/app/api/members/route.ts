@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import { getMembersByTenant } from '@/lib/queries'
-
-const DEMO_TENANT_ID = '11111111-1111-1111-1111-111111111111'
+import { getAuthContext } from '@/lib/api-utils'
 
 export async function GET() {
     try {
-        const members = await getMembersByTenant(DEMO_TENANT_ID)
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
+        const members = await getMembersByTenant(auth.tenantId)
         return NextResponse.json(members)
     } catch (error) {
         console.error('Error fetching members:', error)

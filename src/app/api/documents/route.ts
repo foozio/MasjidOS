@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server'
 import { getDocumentsByTenant } from '@/lib/queries'
-
-const DEMO_TENANT_ID = '11111111-1111-1111-1111-111111111111'
+import { getAuthContext } from '@/lib/api-utils'
 
 export async function GET(request: Request) {
     try {
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
         const { searchParams } = new URL(request.url)
         const category = searchParams.get('category')
 
-        const documents = await getDocumentsByTenant(DEMO_TENANT_ID, category || undefined)
+        const documents = await getDocumentsByTenant(auth.tenantId, category || undefined)
         return NextResponse.json(documents)
     } catch (error) {
         console.error('Error fetching documents:', error)

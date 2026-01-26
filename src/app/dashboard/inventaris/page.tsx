@@ -99,6 +99,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
 
 // Add Asset Modal
 function AddAssetModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+    const [isUploading, setIsUploading] = useState(false)
+    const [file, setFile] = useState<File | null>(null)
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -110,6 +112,62 @@ function AddAssetModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
 
     if (!isOpen) return null
 
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setFile(e.target.files[0])
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setIsUploading(true)
+
+        try {
+            let imageUrl = ''
+
+            // 1. Upload image if selected
+            if (file) {
+                const uploadResult = await import('@vercel/blob/client').then(m => m.upload(file.name, file, {
+                    access: 'public',
+                    handleUploadUrl: '/api/upload',
+                }))
+                imageUrl = uploadResult.url
+            }
+
+            // 2. Submit to server action
+            const submitData = new FormData()
+            submitData.append('name', formData.name)
+            submitData.append('category', formData.category)
+            submitData.append('condition', formData.condition)
+            submitData.append('location', formData.location)
+            submitData.append('value', formData.value)
+            submitData.append('notes', formData.notes)
+            submitData.append('imageUrl', imageUrl)
+
+            const { createAsset } = await import('@/lib/actions')
+            const result = await createAsset(submitData)
+
+            if (result.error) throw new Error(result.error)
+
+            onClose()
+            // Reset form
+            setFile(null)
+            setFormData({
+                name: '',
+                category: '',
+                condition: 'good',
+                location: '',
+                value: '',
+                notes: '',
+            })
+        } catch (error) {
+            console.error('Failed to create asset:', error)
+            alert('Gagal menyimpan aset')
+        } finally {
+            setIsUploading(false)
+        }
+    }
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -120,7 +178,35 @@ function AddAssetModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                     </button>
                 </div>
 
-                <form className="p-4 space-y-4">
+                <form onSubmit={handleSubmit} className="p-4 space-y-4">
+                    {/* Image Upload */}
+                    <div className="flex items-center gap-4">
+                        <div className={cn(
+                            "w-20 h-20 rounded-xl flex items-center justify-center border-2 border-dashed border-neutral-200 overflow-hidden relative",
+                            file ? "border-none" : "hover:border-primary-400"
+                        )}>
+                            {file ? (
+                                <img
+                                    src={URL.createObjectURL(file)}
+                                    alt="Preview"
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <Package className="w-8 h-8 text-neutral-300" />
+                            )}
+                            <input
+                                type="file"
+                                onChange={handleFileSelect}
+                                accept="image/*"
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                            />
+                        </div>
+                        <div>
+                            <p className="text-sm font-medium text-neutral-900">Foto Aset</p>
+                            <p className="text-xs text-neutral-500 mt-0.5">Opsional. JPG/PNG maks 2MB.</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-neutral-700 mb-1.5">Nama Aset *</label>
                         <input
@@ -201,11 +287,11 @@ function AddAssetModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                     </div>
 
                     <div className="flex gap-3 pt-2">
-                        <button type="button" onClick={onClose} className="btn-secondary flex-1">
+                        <button type="button" onClick={onClose} className="btn-secondary flex-1" disabled={isUploading}>
                             Batal
                         </button>
-                        <button type="submit" className="btn-primary flex-1">
-                            Simpan
+                        <button type="submit" className="btn-primary flex-1" disabled={isUploading}>
+                            {isUploading ? 'Menyimpan...' : 'Simpan'}
                         </button>
                     </div>
                 </form>

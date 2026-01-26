@@ -104,10 +104,60 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
 
 // Upload Modal
 function UploadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+    const [isUploading, setIsUploading] = useState(false)
+    const [file, setFile] = useState<File | null>(null)
     const [formData, setFormData] = useState({
         name: '',
         category: '',
     })
+
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const selectedFile = e.target.files[0]
+            setFile(selectedFile)
+            // Auto-fill name if empty
+            if (!formData.name) {
+                setFormData(prev => ({ ...prev, name: selectedFile.name }))
+            }
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!file) return
+
+        setIsUploading(true)
+        try {
+            // 1. Upload to Vercel Blob
+            const { url } = await import('@vercel/blob/client').then(m => m.upload(file.name, file, {
+                access: 'public',
+                handleUploadUrl: '/api/upload',
+            }))
+
+            // 2. Save metadata to DB via Server Action
+            const submitData = new FormData()
+            submitData.append('name', formData.name)
+            submitData.append('category', formData.category)
+            submitData.append('fileUrl', url)
+            submitData.append('fileSize', file.size.toString())
+
+            // Dynamically import action to avoid server-on-client issues if not properly handled
+            const { createDocument } = await import('@/lib/actions')
+            const result = await createDocument(submitData)
+
+            if (result.error) throw new Error(result.error)
+
+            onClose()
+            // Reset form
+            setFile(null)
+            setFormData({ name: '', category: '' })
+        } catch (error) {
+            console.error('Upload failed:', error)
+            alert('Gagal mengupload dokumen. Pastikan Anda memiliki izin.')
+        } finally {
+            setIsUploading(false)
+        }
+    }
 
     if (!isOpen) return null
 
@@ -121,12 +171,29 @@ function UploadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                     </button>
                 </div>
 
-                <form className="p-4 space-y-4">
+                <form onSubmit={handleSubmit} className="p-4 space-y-4">
                     {/* Upload Area */}
-                    <div className="border-2 border-dashed border-neutral-200 rounded-xl p-8 text-center hover:border-primary-400 transition-colors cursor-pointer">
-                        <Upload className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
-                        <p className="font-medium text-neutral-900 mb-1">Klik untuk upload file</p>
-                        <p className="text-sm text-neutral-500">PDF, DOC, JPG, PNG hingga 10MB</p>
+                    <div className="border-2 border-dashed border-neutral-200 rounded-xl p-8 text-center hover:border-primary-400 transition-colors cursor-pointer relative">
+                        <input
+                            type="file"
+                            onChange={handleFileSelect}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                            required
+                        />
+                        {file ? (
+                            <div className="flex flex-col items-center">
+                                <FileText className="w-10 h-10 text-primary-500 mb-3" />
+                                <p className="font-medium text-neutral-900 mb-1">{file.name}</p>
+                                <p className="text-sm text-neutral-500">{formatFileSize(file.size)}</p>
+                            </div>
+                        ) : (
+                            <>
+                                <Upload className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
+                                <p className="font-medium text-neutral-900 mb-1">Klik untuk upload file</p>
+                                <p className="text-sm text-neutral-500">PDF, DOC, JPG, PNG hingga 10MB</p>
+                            </>
+                        )}
                     </div>
 
                     <div>
@@ -137,6 +204,7 @@ function UploadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             className="input"
                             placeholder="Contoh: Notulen Rapat Januari 2026"
+                            required
                         />
                     </div>
 
@@ -156,11 +224,11 @@ function UploadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                     </div>
 
                     <div className="flex gap-3 pt-2">
-                        <button type="button" onClick={onClose} className="btn-secondary flex-1">
+                        <button type="button" onClick={onClose} className="btn-secondary flex-1" disabled={isUploading}>
                             Batal
                         </button>
-                        <button type="submit" className="btn-primary flex-1">
-                            Upload
+                        <button type="submit" className="btn-primary flex-1" disabled={isUploading || !file}>
+                            {isUploading ? 'Mengupload...' : 'Upload'}
                         </button>
                     </div>
                 </form>

@@ -66,6 +66,20 @@ export async function getMembershipByUserAndTenant(userId: string, tenantId: str
     return result[0] || null
 }
 
+export async function getUserMemberships(userId: string) {
+    if (isDemoMode()) {
+        return demoMembers.filter(m => m.userId === userId)
+    }
+
+    const result = await sql`
+    SELECT m.*, r.name as role_name, r.permissions
+    FROM memberships m
+    JOIN roles r ON m.role_id = r.id
+    WHERE m.user_id = ${userId}
+  `
+    return result
+}
+
 export async function getMembersByTenant(tenantId: string) {
     if (isDemoMode()) {
         return demoMembers.filter(m => m.tenantId === tenantId)

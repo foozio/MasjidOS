@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import { getAssetsByTenant } from '@/lib/queries'
-
-const DEMO_TENANT_ID = '11111111-1111-1111-1111-111111111111'
+import { getAuthContext } from '@/lib/api-utils'
 
 export async function GET() {
     try {
-        const assets = await getAssetsByTenant(DEMO_TENANT_ID)
+        const auth = await getAuthContext()
+        if (!auth.isAuthenticated) return auth.response
+
+        const assets = await getAssetsByTenant(auth.tenantId)
         return NextResponse.json(assets)
     } catch (error) {
         console.error('Error fetching assets:', error)
