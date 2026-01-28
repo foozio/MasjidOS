@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server'
 import { getDonationsByTenant, createDonation } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
+import { z } from 'zod'
+
+const CreateDonationSchema = z.object({
+    donorName: z.string().max(255).optional(),
+    donorEmail: z.string().email('Invalid email format').optional().or(z.literal('')),
+    amount: z.number().positive('Amount must be positive'),
+    isAnonymous: z.boolean().optional().default(false),
+    message: z.string().max(1000).optional(),
+})
 
 export async function GET(request: Request) {
     try {
@@ -24,18 +33,23 @@ export async function POST(request: Request) {
         if (!auth.isAuthenticated) return auth.response
 
         const body = await request.json()
-        const { donorName, donorEmail, amount, isAnonymous, message } = body
+        const validated = CreateDonationSchema.safeParse(body)
 
-        if (!amount || amount <= 0) {
-            return NextResponse.json({ error: 'Invalid amount' }, { status: 400 })
+        if (!validated.success) {
+            return NextResponse.json(
+                { error: 'Validation failed', details: validated.error.flatten() },
+                { status: 400 }
+            )
         }
+
+        const { donorName, donorEmail, amount, isAnonymous, message } = validated.data
 
         const donation = await createDonation({
             tenantId: auth.tenantId,
-            donorName: isAnonymous ? null : donorName,
-            donorEmail: isAnonymous ? null : donorEmail,
+            donorName: isAnonymous ? undefined : donorName,
+            donorEmail: isAnonymous ? undefined : (donorEmail || undefined),
             amount,
-            isAnonymous: isAnonymous || false,
+            isAnonymous,
             message,
         })
 

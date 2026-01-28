@@ -33,9 +33,9 @@ export async function getAuthContext(): Promise<
                 response: NextResponse.json({ error: 'No tenant membership found' }, { status: 403 }),
             }
         }
-
         // Default to first tenant for MVP
-        const tenantId = memberships[0].tenant_id || memberships[0].tenantId // Handle camel/snake case mix if any
+        const membership = memberships[0] as Record<string, unknown>
+        const tenantId = (membership.tenant_id || membership.tenantId) as string // Handle camel/snake case mix if any
 
         return {
             isAuthenticated: true,

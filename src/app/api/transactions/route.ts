@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server'
 import { getTransactionsByTenant, getTransactionStats, createTransaction } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
+import { z } from 'zod'
+
+const CreateTransactionSchema = z.object({
+    type: z.enum(['income', 'expense']),
+    amount: z.number().positive('Amount must be positive'),
+    categoryId: z.string().uuid('Invalid category ID'),
+    description: z.string().min(1, 'Description is required').max(500),
+})
 
 export async function GET(request: Request) {
     try {
@@ -37,11 +45,16 @@ export async function POST(request: Request) {
         if (!auth.isAuthenticated) return auth.response
 
         const body = await request.json()
-        const { type, amount, categoryId, description } = body
+        const validated = CreateTransactionSchema.safeParse(body)
 
-        if (!type || !amount || !categoryId || !description) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+        if (!validated.success) {
+            return NextResponse.json(
+                { error: 'Validation failed', details: validated.error.flatten() },
+                { status: 400 }
+            )
         }
+
+        const { type, amount, categoryId, description } = validated.data
 
         const transaction = await createTransaction({
             tenantId: auth.tenantId,

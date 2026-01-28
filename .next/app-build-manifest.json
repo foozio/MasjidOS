@@ -1,80 +1,139 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/app/_not-found/page-2258032d7ddbee9d.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/css/1ebf9125d67421da.css",
+      "static/chunks/app/layout-e27b4de6e1964686.js"
+    ],
+    "/register/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/app/register/page-833ddfc841f0eb1e.js"
     ],
     "/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/app/login/page-1b2e6448290e536b.js"
     ],
-    "/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
+    "/onboarding/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/app/onboarding/page-0a73ae81089e0f0d.js"
     ],
-    "/dashboard/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/layout.js"
-    ],
-    "/dashboard/keuangan/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/keuangan/page.js"
-    ],
-    "/dashboard/donasi/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/donasi/page.js"
-    ],
-    "/dashboard/kegiatan/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/kegiatan/page.js"
-    ],
-    "/dashboard/pengumuman/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/pengumuman/page.js"
-    ],
-    "/dashboard/inventaris/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/inventaris/page.js"
-    ],
-    "/dashboard/dokumen/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/dokumen/page.js"
+    "/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/631-99d3808f4cbc7b9b.js",
+      "static/chunks/app/page-b1dadd277f559f0e.js"
     ],
     "/dashboard/anggota/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/anggota/page.js"
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/anggota/page-b260c6e6d6b3a605.js"
+    ],
+    "/dashboard/layout": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/app/dashboard/layout-d1bc111496e6fedf.js"
     ],
     "/dashboard/audit/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/audit/page.js"
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/audit/page-b49abee994aff4ff.js"
+    ],
+    "/dashboard/inventaris/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/inventaris/page-ea0f837b2ab27008.js"
+    ],
+    "/dashboard/keuangan/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/keuangan/page-f673def62bbf71f2.js"
+    ],
+    "/dashboard/kegiatan/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/app/dashboard/kegiatan/page-13adf719d60494ec.js"
+    ],
+    "/dashboard/dokumen/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/dokumen/page-5727a3f27f29d89a.js"
+    ],
+    "/dashboard/donasi/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/855-88736e4d88b4fb6a.js",
+      "static/chunks/app/dashboard/donasi/page-53256833db80d626.js"
     ],
     "/dashboard/settings/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/settings/page.js"
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/905-df7603ff04aec885.js",
+      "static/chunks/app/dashboard/settings/page-15282a71558c6e6a.js"
     ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+    "/dashboard/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/216-db3aaa7aef5acf27.js",
+      "static/chunks/app/dashboard/page-5e211339fa5a9e9b.js"
+    ],
+    "/dashboard/pengumuman/page": [
+      "static/chunks/webpack-ee93fade8f66f0b8.js",
+      "static/chunks/fd9d1056-357a9aa7cf7b0906.js",
+      "static/chunks/117-70fd4c191877faa2.js",
+      "static/chunks/main-app-771c5080f471c42f.js",
+      "static/chunks/905-df7603ff04aec885.js",
+      "static/chunks/app/dashboard/pengumuman/page-89ba7d818a0733ba.js"
     ]
   }
 }
