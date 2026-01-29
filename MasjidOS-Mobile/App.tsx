@@ -3,7 +3,7 @@ import { StyleSheet, View, ActivityIndicator, SafeAreaView, RefreshControl, Scro
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import { useCallback, useRef, useState, useEffect } from 'react';
 
-const APP_URL = 'https://masjid-os.vercel.app';
+const APP_URL = 'https://masjidos.vercel.app';
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
