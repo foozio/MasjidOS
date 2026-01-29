@@ -3,6 +3,7 @@ import { getDonationsByTenant, createDonation } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
 const CreateDonationSchema = z.object({
     donorName: z.string().max(255).optional(),
     donorEmail: z.string().email('Invalid email format').optional().or(z.literal('')),

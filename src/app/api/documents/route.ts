@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { getDocumentsByTenant } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
 
+export const dynamic = 'force-dynamic'
 export async function GET(request: Request) {
     try {
         const auth = await getAuthContext()

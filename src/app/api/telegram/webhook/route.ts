@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { handleUpdate, isBotEnabled } from '@/lib/telegram'
 
+export const dynamic = 'force-dynamic'
 export async function POST(request: Request) {
     if (!isBotEnabled()) {
         return NextResponse.json(

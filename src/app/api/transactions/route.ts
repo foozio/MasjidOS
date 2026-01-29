@@ -4,6 +4,7 @@ import { getAuthContext } from '@/lib/api-utils'
 import { withRateLimit } from '@/lib/with-rate-limit'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
 const CreateTransactionSchema = z.object({
     type: z.enum(['income', 'expense']),
     amount: z.number().positive('Amount must be positive'),
