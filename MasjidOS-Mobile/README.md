@@ -37,7 +37,7 @@ npx eas build --platform ios --profile preview
 
 ## Configuration
 
-The app loads `https://masjidos.vercel.app` by default.
+The app loads `https://masjid-os-git-main-musa-pro.vercel.app` by default.
 
 To change the URL, edit `App.tsx`:
 
