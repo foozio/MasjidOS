@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getTransactionsByTenant, getTransactionStats, createTransaction } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
+import { withRateLimit } from '@/lib/with-rate-limit'
 import { z } from 'zod'
 
 const CreateTransactionSchema = z.object({
@@ -10,7 +11,7 @@ const CreateTransactionSchema = z.object({
     description: z.string().min(1, 'Description is required').max(500),
 })
 
-export async function GET(request: Request) {
+async function handleGET(request: Request) {
     try {
         const auth = await getAuthContext()
         if (!auth.isAuthenticated) return auth.response
@@ -39,7 +40,7 @@ export async function GET(request: Request) {
     }
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
     try {
         const auth = await getAuthContext()
         if (!auth.isAuthenticated) return auth.response
@@ -71,3 +72,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Failed to create transaction' }, { status: 500 })
     }
 }
+
+// Apply rate limiting: 60 requests per minute
+export const GET = withRateLimit(handleGET, { limit: 60 })
+export const POST = withRateLimit(handlePOST, { limit: 30 })
+

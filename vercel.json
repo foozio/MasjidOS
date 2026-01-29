@@ -1,0 +1,21 @@
+{
+    "github": {
+        "enabled": true,
+        "silent": true
+    },
+    "regions": [
+        "sin1"
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-DNS-Prefetch-Control",
+                    "value": "on"
+                }
+            ]
+        }
+    ],
+    "crons": []
+}
