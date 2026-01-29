@@ -389,3 +389,72 @@ export async function createAuditLog(data: {
   `
     return result[0]
 }
+
+// ============================================
+// TELEGRAM SUBSCRIPTIONS
+// ============================================
+export type TelegramSubscription = {
+    id: string
+    tenant_id: string
+    chat_id: number
+    username?: string
+    notification_types: string[]
+    is_active: boolean
+    created_at: Date
+}
+
+export async function getTelegramSubscriptions(tenantId: string): Promise<TelegramSubscription[]> {
+    if (isDemoMode()) {
+        return [] // No demo subscriptions
+    }
+
+    const result = await sql`
+    SELECT * FROM telegram_subscriptions
+    WHERE tenant_id = ${tenantId} AND is_active = true
+  `
+    return result as TelegramSubscription[]
+}
+
+export async function addTelegramSubscription(data: {
+    tenantId: string
+    chatId: number
+    username?: string
+}): Promise<TelegramSubscription | null> {
+    if (isDemoMode()) {
+        return null
+    }
+
+    const result = await sql`
+    INSERT INTO telegram_subscriptions (tenant_id, chat_id, username)
+    VALUES (${data.tenantId}, ${data.chatId}, ${data.username || null})
+    ON CONFLICT (chat_id) DO UPDATE SET
+      is_active = true,
+      updated_at = NOW()
+    RETURNING *
+  `
+    return result[0] as TelegramSubscription
+}
+
+export async function removeTelegramSubscription(chatId: number): Promise<void> {
+    if (isDemoMode()) {
+        return
+    }
+
+    await sql`
+    UPDATE telegram_subscriptions
+    SET is_active = false, updated_at = NOW()
+    WHERE chat_id = ${chatId}
+  `
+}
+
+export async function getTelegramSubscriptionByChatId(chatId: number): Promise<TelegramSubscription | null> {
+    if (isDemoMode()) {
+        return null
+    }
+
+    const result = await sql`
+    SELECT * FROM telegram_subscriptions
+    WHERE chat_id = ${chatId}
+  `
+    return (result[0] as TelegramSubscription) || null
+}
