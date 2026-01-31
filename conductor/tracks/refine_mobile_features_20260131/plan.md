@@ -3,7 +3,7 @@
 ## Phase 1: Authentication & API Foundation
 Establish secure communication between the mobile app and the existing backend.
 
-- [ ] Task: Set up API client and secure token storage in `MasjidOS-Mobile`.
+- [x] Task: Set up API client and secure token storage in `MasjidOS-Mobile`. 3c62cc9
     - [ ] Write unit tests for the API client (mocking fetch).
     - [ ] Implement the API client with base URL and error handling.
 - [ ] Task: Implement Login Flow in the mobile app.
