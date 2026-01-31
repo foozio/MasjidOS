@@ -6,7 +6,7 @@ Establish secure communication between the mobile app and the existing backend.
 - [x] Task: Set up API client and secure token storage in `MasjidOS-Mobile`. 3c62cc9
     - [ ] Write unit tests for the API client (mocking fetch).
     - [ ] Implement the API client with base URL and error handling.
-- [ ] Task: Implement Login Flow in the mobile app.
+- [x] Task: Implement Login Flow in the mobile app. fc58d54
     - [ ] Write unit tests for the login logic and state management.
     - [ ] Build the Login screen and integrate with the `/api/auth` endpoint.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Authentication & API Foundation' (Protocol in workflow.md)
