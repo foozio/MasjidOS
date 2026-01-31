@@ -11,16 +11,16 @@ Establish secure communication between the mobile app and the existing backend.
     - [x] Build the Login screen and integrate with the `/api/auth` endpoint.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Authentication & API Foundation' (Protocol in workflow.md) 4703dcf
 
-## Phase 2: Core Dashboard & Navigation
+## Phase 2: Core Dashboard & Navigation [checkpoint: d3dc7fa]
 Build the main entry point and navigation structure.
 
 - [x] Task: Implement Main Navigation (Tabs/Drawer). 7c9606a
-    - [ ] Write tests for navigation structure and route accessibility.
-    - [ ] Build the bottom tab navigation (Dashboard, Finance, Activities, More).
+    - [x] Write tests for navigation structure and route accessibility.
+    - [x] Build the bottom tab navigation (Dashboard, Finance, Activities, More).
 - [x] Task: Implement Dashboard Screen. 3ef90fb
-    - [ ] Write tests for data fetching and display logic.
-    - [ ] Build the Dashboard UI with KPI cards (integrated with `/api/donations` and `/api/events`).
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Dashboard & Navigation' (Protocol in workflow.md)
+    - [x] Write tests for data fetching and display logic.
+    - [x] Build the Dashboard UI with KPI cards (integrated with `/api/donations` and `/api/events`).
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Core Dashboard & Navigation' (Protocol in workflow.md) d3dc7fa
 
 ## Phase 3: Financial & Donation Modules
 Enable financial recording and donation tracking.
