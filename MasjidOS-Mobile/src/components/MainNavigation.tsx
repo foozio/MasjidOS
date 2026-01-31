@@ -6,10 +6,27 @@ import { TouchableOpacity } from 'react-native';
 import DashboardScreen from '../screens/DashboardScreen';
 import FinanceScreen from '../screens/FinanceScreen';
 import AddTransactionScreen from '../screens/AddTransactionScreen';
+import DonationScreen from '../screens/DonationScreen';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 
 const Tab = createBottomTabNavigator();
 const FinanceStack = createNativeStackNavigator();
+const DashboardStack = createNativeStackNavigator();
+
+const DashboardStackScreen = () => (
+  <DashboardStack.Navigator>
+    <DashboardStack.Screen 
+      name="DashboardHome" 
+      component={DashboardScreen} 
+      options={{ title: 'MasjidOS', headerTintColor: '#059669' }}
+    />
+    <DashboardStack.Screen 
+      name="Donations" 
+      component={DonationScreen} 
+      options={{ title: 'Donations' }}
+    />
+  </DashboardStack.Navigator>
+);
 
 const FinanceStackScreen = () => (
   <FinanceStack.Navigator>
@@ -49,9 +66,11 @@ const MainNavigation = () => {
       }}
     >
       <Tab.Screen 
-        name="Dashboard" 
-        component={DashboardScreen} 
+        name="DashboardTab" 
+        component={DashboardStackScreen} 
         options={{
+          title: 'Dashboard',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <LayoutDashboard color={color} size={size} />,
         }}
       />

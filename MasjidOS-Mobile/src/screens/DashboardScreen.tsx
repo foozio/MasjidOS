@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
 import { api } from '../lib/api';
 import { LayoutDashboard, Wallet, Calendar } from 'lucide-react-native';
 
@@ -14,7 +14,7 @@ interface MosqueEvent {
   startDate: string;
 }
 
-const DashboardScreen = () => {
+const DashboardScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [donations, setDonations] = useState<Donation[]>([]);
@@ -63,22 +63,12 @@ const DashboardScreen = () => {
       style={styles.container}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#059669" />}
     >
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Overview</Text>
-      </View>
-
-      {error && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-        </View>
-      )}
-
       <View style={styles.statsGrid}>
-        <View style={styles.statCard}>
+        <TouchableOpacity style={styles.statCard} onPress={() => navigation.navigate('Donations')}>
           <Wallet color="#059669" size={24} />
           <Text style={styles.statLabel}>Total Donations</Text>
           <Text style={styles.statValue}>{totalDonations.toLocaleString()}</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.section}>

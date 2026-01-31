@@ -49,6 +49,11 @@ jest.mock('lucide-react-native', () => ({
   Wallet: () => 'WalletIcon',
   Calendar: () => 'CalendarIcon',
   Plus: () => 'PlusIcon',
+  Heart: () => 'HeartIcon',
+  ArrowUpCircle: () => 'ArrowUpCircleIcon',
+  ArrowDownCircle: () => 'ArrowDownCircleIcon',
+  ArrowLeft: () => 'ArrowLeftIcon',
+  Save: () => 'SaveIcon',
 }));
 
 describe('MainNavigation', () => {
@@ -59,7 +64,7 @@ describe('MainNavigation', () => {
       </NavigationContainer>
     );
 
-    expect(getByText('Dashboard Screen')).toBeTruthy();
+    expect(getByText('DashboardTab Screen')).toBeTruthy();
     expect(getByText('FinanceTab Screen')).toBeTruthy();
     expect(getByText('Activities Screen')).toBeTruthy();
   });
