@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, ActivityIndicator, SafeAreaView, RefreshControl, ScrollView, Platform, BackHandler } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import { useCallback, useRef, useState, useEffect } from 'react';
+import Login from './src/components/Login';
+import { getStoredToken } from './src/lib/api';
 
 const APP_URL = 'https://masjid-os-git-main-musa-pro.vercel.app';
 
@@ -10,6 +12,17 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    const token = await getStoredToken();
+    setIsAuthenticated(!!token);
+    setIsLoading(false);
+  };
 
   // Handle Android back button
   useEffect(() => {
@@ -34,6 +47,22 @@ export default function App() {
     webViewRef.current?.reload();
     setTimeout(() => setRefreshing(false), 1000);
   }, []);
+
+  if (isAuthenticated === null || (isLoading && isAuthenticated === false)) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#10b981" />
+      </View>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Login onLoginSuccess={() => setIsAuthenticated(true)} />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
