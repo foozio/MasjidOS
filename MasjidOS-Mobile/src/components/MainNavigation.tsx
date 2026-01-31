@@ -1,11 +1,37 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { LayoutDashboard, Wallet, Calendar } from 'lucide-react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LayoutDashboard, Wallet, Calendar, Plus } from 'lucide-react-native';
+import { TouchableOpacity } from 'react-native';
 import DashboardScreen from '../screens/DashboardScreen';
 import FinanceScreen from '../screens/FinanceScreen';
+import AddTransactionScreen from '../screens/AddTransactionScreen';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 
 const Tab = createBottomTabNavigator();
+const FinanceStack = createNativeStackNavigator();
+
+const FinanceStackScreen = () => (
+  <FinanceStack.Navigator>
+    <FinanceStack.Screen 
+      name="FinanceList" 
+      component={FinanceScreen} 
+      options={({ navigation }) => ({
+        title: 'Finance',
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('AddTransaction')}>
+            <Plus color="#059669" size={24} />
+          </TouchableOpacity>
+        ),
+      })}
+    />
+    <FinanceStack.Screen 
+      name="AddTransaction" 
+      component={AddTransactionScreen} 
+      options={{ title: 'Add Transaction', headerShown: false }}
+    />
+  </FinanceStack.Navigator>
+);
 
 const MainNavigation = () => {
   return (
@@ -30,9 +56,11 @@ const MainNavigation = () => {
         }}
       />
       <Tab.Screen 
-        name="Finance" 
-        component={FinanceScreen} 
+        name="FinanceTab" 
+        component={FinanceStackScreen} 
         options={{
+          title: 'Finance',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <Wallet color={color} size={size} />,
         }}
       />

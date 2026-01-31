@@ -32,10 +32,23 @@ jest.mock('@react-navigation/bottom-tabs', () => {
   };
 });
 
+jest.mock('@react-navigation/native-stack', () => {
+  return {
+    createNativeStackNavigator: jest.fn(() => ({
+      Navigator: ({ children }: any) => <>{children}</>,
+      Screen: ({ name }: any) => {
+        const { Text } = require('react-native');
+        return <Text>{name} Screen</Text>;
+      },
+    })),
+  };
+});
+
 jest.mock('lucide-react-native', () => ({
   LayoutDashboard: () => 'LayoutDashboardIcon',
   Wallet: () => 'WalletIcon',
   Calendar: () => 'CalendarIcon',
+  Plus: () => 'PlusIcon',
 }));
 
 describe('MainNavigation', () => {
@@ -47,7 +60,7 @@ describe('MainNavigation', () => {
     );
 
     expect(getByText('Dashboard Screen')).toBeTruthy();
-    expect(getByText('Finance Screen')).toBeTruthy();
+    expect(getByText('FinanceTab Screen')).toBeTruthy();
     expect(getByText('Activities Screen')).toBeTruthy();
   });
 });
