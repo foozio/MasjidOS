@@ -1,15 +1,15 @@
 # Implementation Plan: Refine Mobile App Features
 
-## Phase 1: Authentication & API Foundation
+## Phase 1: Authentication & API Foundation [checkpoint: 4703dcf]
 Establish secure communication between the mobile app and the existing backend.
 
 - [x] Task: Set up API client and secure token storage in `MasjidOS-Mobile`. 3c62cc9
-    - [ ] Write unit tests for the API client (mocking fetch).
-    - [ ] Implement the API client with base URL and error handling.
+    - [x] Write unit tests for the API client (mocking fetch).
+    - [x] Implement the API client with base URL and error handling.
 - [x] Task: Implement Login Flow in the mobile app. fc58d54
-    - [ ] Write unit tests for the login logic and state management.
-    - [ ] Build the Login screen and integrate with the `/api/auth` endpoint.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Authentication & API Foundation' (Protocol in workflow.md)
+    - [x] Write unit tests for the login logic and state management.
+    - [x] Build the Login screen and integrate with the `/api/auth` endpoint.
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Authentication & API Foundation' (Protocol in workflow.md) 4703dcf
 
 ## Phase 2: Core Dashboard & Navigation
 Build the main entry point and navigation structure.
