@@ -25,7 +25,7 @@ Build the main entry point and navigation structure.
 ## Phase 3: Financial & Donation Modules
 Enable financial recording and donation tracking.
 
-- [ ] Task: Implement Finance List and Details.
+- [x] Task: Implement Finance List and Details. 7167169
     - [ ] Write tests for transaction list rendering and filtering.
     - [ ] Build the UI to display transactions from `/api/transactions`.
 - [ ] Task: Implement 'Add Transaction' Form.
