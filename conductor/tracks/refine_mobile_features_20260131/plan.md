@@ -14,10 +14,10 @@ Establish secure communication between the mobile app and the existing backend.
 ## Phase 2: Core Dashboard & Navigation
 Build the main entry point and navigation structure.
 
-- [ ] Task: Implement Main Navigation (Tabs/Drawer).
+- [x] Task: Implement Main Navigation (Tabs/Drawer). 7c9606a
     - [ ] Write tests for navigation structure and route accessibility.
     - [ ] Build the bottom tab navigation (Dashboard, Finance, Activities, More).
-- [ ] Task: Implement Dashboard Screen.
+- [x] Task: Implement Dashboard Screen. 3ef90fb
     - [ ] Write tests for data fetching and display logic.
     - [ ] Build the Dashboard UI with KPI cards (integrated with `/api/donations` and `/api/events`).
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Dashboard & Navigation' (Protocol in workflow.md)

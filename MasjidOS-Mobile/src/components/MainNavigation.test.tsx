@@ -1,6 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
+
+// Mock expo-secure-store before any imports that use it (like api.ts)
+jest.mock('expo-secure-store', () => ({
+  setItemAsync: jest.fn(),
+  getItemAsync: jest.fn(),
+  deleteItemAsync: jest.fn(),
+}));
+
 import MainNavigation from './MainNavigation';
 
 // Mock navigation
