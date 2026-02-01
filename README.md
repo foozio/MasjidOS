@@ -15,6 +15,7 @@
 - **Announcements (Pengumuman)**: Broadcast news to jamaah or internal staff.
 - **User Management**: Role-based access control (Admin, Brendahara, Sekretaris, etc.).
 - **Audit Log**: Track all system changes for transparency.
+- **Mobile App**: Companion app for iOS and Android to manage operations on the go.
 
 ## 🛠️ Tech Stack
 
@@ -24,6 +25,7 @@
 - **Database**: [Neon](https://neon.tech/) (Serverless Postgres)
 - **Authentication**: [NextAuth.js v5](https://authjs.dev/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Mobile**: [React Native](https://reactnative.dev/) / [Expo](https://expo.dev/)
 
 ## 🏁 Getting Started
 
