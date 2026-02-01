@@ -39,10 +39,10 @@ Enable financial recording and donation tracking.
 ## Phase 4: Activities & Final Polish
 Implement the event calendar and finalize the mobile experience.
 
-- [ ] Task: Implement Activities/Events List.
+- [x] Task: Implement Activities/Events List. 7676775
     - [ ] Write tests for event list rendering.
     - [ ] Build the UI to display upcoming events from `/api/events`.
-- [ ] Task: Final UI/UX Polish and Mobile-Specific Testing.
+- [x] Task: Final UI/UX Polish and Mobile-Specific Testing. bdb1496
     - [ ] Conduct touch-target and responsive layout checks on actual device/emulator.
     - [ ] Fix any layout issues and ensure consistent styling.
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Activities & Final Polish' (Protocol in workflow.md)

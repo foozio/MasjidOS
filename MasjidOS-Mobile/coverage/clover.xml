@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1769867143856" clover="3.2.0">
-  <project timestamp="1769867143856" name="All files">
-    <metrics statements="26" coveredstatements="22" conditionals="10" coveredconditionals="8" methods="6" coveredmethods="5" elements="42" coveredelements="35" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
-    <file name="DonationScreen.tsx" path="/Users/foozio/Downloads/Codes/MasjidOS/MasjidOS-Mobile/src/screens/DonationScreen.tsx">
-      <metrics statements="26" coveredstatements="22" conditionals="10" coveredconditionals="8" methods="6" coveredmethods="5"/>
-      <line num="14" count="1" type="stmt"/>
-      <line num="15" count="2" type="stmt"/>
-      <line num="16" count="2" type="stmt"/>
-      <line num="17" count="2" type="stmt"/>
-      <line num="18" count="2" type="stmt"/>
+<coverage generated="1769905571163" clover="3.2.0">
+  <project timestamp="1769905571163" name="All files">
+    <metrics statements="26" coveredstatements="22" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5" elements="40" coveredelements="33" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
+    <file name="ActivitiesScreen.tsx" path="/Users/foozio/Downloads/Codes/MasjidOS/MasjidOS-Mobile/src/screens/ActivitiesScreen.tsx">
+      <metrics statements="26" coveredstatements="22" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="14" count="4" type="stmt"/>
+      <line num="15" count="4" type="stmt"/>
+      <line num="16" count="4" type="stmt"/>
+      <line num="17" count="4" type="stmt"/>
+      <line num="19" count="4" type="stmt"/>
       <line num="20" count="2" type="stmt"/>
-      <line num="21" count="1" type="stmt"/>
-      <line num="22" count="1" type="stmt"/>
-      <line num="23" count="1" type="stmt"/>
-      <line num="24" count="1" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
       <line num="26" count="0" type="stmt"/>
-      <line num="27" count="0" type="stmt"/>
-      <line num="29" count="1" type="stmt"/>
-      <line num="30" count="1" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="29" count="2" type="stmt"/>
+      <line num="33" count="4" type="stmt"/>
       <line num="34" count="2" type="stmt"/>
-      <line num="35" count="1" type="stmt"/>
-      <line num="38" count="2" type="stmt"/>
+      <line num="37" count="4" type="stmt"/>
+      <line num="38" count="0" type="stmt"/>
       <line num="39" count="0" type="stmt"/>
-      <line num="40" count="0" type="stmt"/>
+      <line num="42" count="4" type="stmt"/>
       <line num="43" count="2" type="stmt"/>
-      <line num="44" count="2" type="stmt"/>
-      <line num="58" count="2" type="cond" truecount="4" falsecount="0"/>
-      <line num="59" count="1" type="stmt"/>
-      <line num="66" count="1" type="stmt"/>
-      <line num="77" count="3" type="stmt"/>
-      <line num="86" count="1" type="stmt"/>
+      <line num="60" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="61" count="2" type="stmt"/>
+      <line num="68" count="2" type="stmt"/>
+      <line num="79" count="3" type="stmt"/>
+      <line num="88" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
