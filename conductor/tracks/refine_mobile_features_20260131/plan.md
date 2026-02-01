@@ -36,13 +36,13 @@ Enable financial recording and donation tracking.
     - [x] Build the screen to view donor lists and summaries.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Financial & Donation Modules' (Protocol in workflow.md) 4a82040
 
-## Phase 4: Activities & Final Polish
+## Phase 4: Activities & Final Polish [checkpoint: 82944cb]
 Implement the event calendar and finalize the mobile experience.
 
 - [x] Task: Implement Activities/Events List. 7676775
-    - [ ] Write tests for event list rendering.
-    - [ ] Build the UI to display upcoming events from `/api/events`.
+    - [x] Write tests for event list rendering.
+    - [x] Build the UI to display upcoming events from `/api/events`.
 - [x] Task: Final UI/UX Polish and Mobile-Specific Testing. bdb1496
-    - [ ] Conduct touch-target and responsive layout checks on actual device/emulator.
-    - [ ] Fix any layout issues and ensure consistent styling.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Activities & Final Polish' (Protocol in workflow.md)
+    - [x] Conduct touch-target and responsive layout checks on actual device/emulator.
+    - [x] Fix any layout issues and ensure consistent styling.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Activities & Final Polish' (Protocol in workflow.md) 82944cb
