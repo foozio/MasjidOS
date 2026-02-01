@@ -10,6 +10,12 @@
 - **Lucide React:** A comprehensive icon library for consistent visual language.
 - **Recharts:** For data visualization in the dashboard (e.g., financial summaries).
 
+## Mobile App (React Native)
+- **React Native (via Expo):** Cross-platform mobile framework for iOS and Android.
+- **React Navigation:** For robust tab and stack-based navigation.
+- **Expo Secure Store:** For secure local storage of authentication tokens.
+- **Lucide React Native:** Mobile-optimized version of the Lucide icon library.
+
 ## Backend & Infrastructure
 - **Neon (Serverless Postgres):** The primary relational database for structured data storage.
 - **NextAuth.js v5 (Beta):** Handling authentication and authorization with a flexible, secure provider.

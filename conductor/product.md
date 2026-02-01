@@ -26,3 +26,4 @@ MasjidOS is a modern, multi-tenant SaaS platform designed to streamline mosque m
 - **Announcements:** Broadcast system for internal and public news.
 - **Role-Based Access Control:** Secure access management for different user roles.
 - **Audit Logs:** Full history of system changes for accountability.
+- **Mobile Companion App:** Cross-platform mobile application for on-the-go access to dashboard, financial recording, and activity monitoring.
