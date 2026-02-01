@@ -10,13 +10,21 @@ jest.mock('../lib/api', () => ({
   setAuthToken: jest.fn(),
 }));
 
+// Mock lucide icons
+jest.mock('lucide-react-native', () => ({
+  LogIn: () => 'LogInIcon',
+  Mail: () => 'MailIcon',
+  Lock: () => 'LockIcon',
+  Mosque: () => 'MosqueIcon',
+}));
+
 describe('Login Component', () => {
   it('should render inputs and button', () => {
     const { getByPlaceholderText, getByText } = render(<Login onLoginSuccess={() => {}} />);
     
-    expect(getByPlaceholderText('Email')).toBeTruthy();
+    expect(getByPlaceholderText('Email Address')).toBeTruthy();
     expect(getByPlaceholderText('Password')).toBeTruthy();
-    expect(getByText('Login')).toBeTruthy();
+    expect(getByText('Sign In')).toBeTruthy();
   });
 
   it('should call login API and set token on success', async () => {
@@ -26,9 +34,9 @@ describe('Login Component', () => {
 
     const { getByPlaceholderText, getByText } = render(<Login onLoginSuccess={onLoginSuccess} />);
     
-    fireEvent.changeText(getByPlaceholderText('Email'), 'test@example.com');
+    fireEvent.changeText(getByPlaceholderText('Email Address'), 'test@example.com');
     fireEvent.changeText(getByPlaceholderText('Password'), 'password123');
-    fireEvent.press(getByText('Login'));
+    fireEvent.press(getByText('Sign In'));
 
     await waitFor(() => {
       expect(api.post).toHaveBeenCalledWith('/auth/login', {
@@ -45,9 +53,9 @@ describe('Login Component', () => {
 
     const { getByPlaceholderText, getByText, findByText } = render(<Login onLoginSuccess={() => {}} />);
     
-    fireEvent.changeText(getByPlaceholderText('Email'), 'test@example.com');
+    fireEvent.changeText(getByPlaceholderText('Email Address'), 'test@example.com');
     fireEvent.changeText(getByPlaceholderText('Password'), 'wrong');
-    fireEvent.press(getByText('Login'));
+    fireEvent.press(getByText('Sign In'));
 
     expect(await findByText('Invalid credentials')).toBeTruthy();
   });

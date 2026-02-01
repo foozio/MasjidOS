@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { api, setAuthToken } from '../lib/api';
+import { LogIn, Mail, Lock, Mosque } from 'lucide-react-native';
 
 interface LoginProps {
   onLoginSuccess: () => void;
@@ -13,6 +14,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -21,85 +27,179 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       await setAuthToken(token);
       onLoginSuccess();
     } catch (err: any) {
-      setError(err.message || 'Invalid credentials');
+      setError(err.response?.data?.error || err.message || 'Invalid credentials');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>MasjidOS Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      {error && <Text style={styles.errorText}>{error}</Text>}
-      <TouchableOpacity 
-        style={styles.button} 
-        onPress={handleLogin}
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Login</Text>
-        )}
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
+          <View style={styles.logoContainer}>
+            <Mosque color="#059669" size={48} />
+          </View>
+          <Text style={styles.title}>MasjidOS</Text>
+          <Text style={styles.subtitle}>Modern Mosque Management</Text>
+        </View>
+
+        <View style={styles.form}>
+          <View style={styles.inputContainer}>
+            <Mail color="#6b7280" size={20} style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Email Address"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              placeholderTextColor="#9ca3af"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Lock color="#6b7280" size={20} style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              placeholderTextColor="#9ca3af"
+            />
+          </View>
+
+          {error && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+          )}
+
+          <TouchableOpacity 
+            style={[styles.button, loading && styles.buttonDisabled]} 
+            onPress={handleLogin}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <>
+                <LogIn color="#fff" size={20} />
+                <Text style={styles.buttonText}>Sign In</Text>
+              </>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.footerText}>
+          Contact your administrator if you don't have an account.
+        </Text>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f9fafb',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#059669', // Emerald 600
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 24,
   },
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 15,
+  header: {
+    alignItems: 'center',
+    marginBottom: 40,
   },
-  button: {
-    height: 50,
-    backgroundColor: '#059669',
-    borderRadius: 8,
+  logoContainer: {
+    width: 80,
+    height: 80,
+    backgroundColor: '#ecfdf5',
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#6b7280',
+    marginTop: 4,
+  },
+  form: {
+    backgroundColor: '#fff',
+    padding: 24,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 3,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    borderRadius: 10,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    height: 52,
+  },
+  inputIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: '#111827',
+  },
+  button: {
+    height: 52,
+    backgroundColor: '#059669',
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  buttonDisabled: {
+    opacity: 0.7,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+    marginLeft: 8,
+  },
+  errorContainer: {
+    backgroundColor: '#fee2e2',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
   },
   errorText: {
     color: '#dc2626',
-    marginBottom: 10,
+    fontSize: 14,
     textAlign: 'center',
+  },
+  footerText: {
+    textAlign: 'center',
+    color: '#9ca3af',
+    marginTop: 32,
+    fontSize: 14,
   },
 });
 
