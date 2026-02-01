@@ -28,10 +28,10 @@ Enable financial recording and donation tracking.
 - [x] Task: Implement Finance List and Details. 7167169
     - [ ] Write tests for transaction list rendering and filtering.
     - [ ] Build the UI to display transactions from `/api/transactions`.
-- [ ] Task: Implement 'Add Transaction' Form.
+- [x] Task: Implement 'Add Transaction' Form. 9ed1d98
     - [ ] Write tests for form validation and API submission.
     - [ ] Build the form to record income/expenses and integrate with the backend.
-- [ ] Task: Implement Donation Summary View.
+- [x] Task: Implement Donation Summary View. 152a0d3
     - [ ] Write tests for donation data aggregation/display.
     - [ ] Build the screen to view donor lists and summaries.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Financial & Donation Modules' (Protocol in workflow.md)
