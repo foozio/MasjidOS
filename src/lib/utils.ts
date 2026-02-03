@@ -1,7 +1,4 @@
 import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge' // Assuming you might want to use twMerge, but for now sticking to clsx as per existing code, or better:
-// Actually the existing code just imports clsx.
-// Let's stick to the existing implementation but add docs.
 
 /**
  * Merges class names and resolves conflicts.
