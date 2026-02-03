@@ -1,8 +1,0 @@
-{
-  "track_id": "refine_mobile_features_20260131",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-01-31T12:00:00Z",
-  "updated_at": "2026-01-31T12:00:00Z",
-  "description": "Implement the remaining core features in the MasjidOS-Mobile directory to match the web application's functionality."
-}
