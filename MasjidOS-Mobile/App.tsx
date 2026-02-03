@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, ActivityIndicator, SafeAreaView, RefreshControl, ScrollView, Platform, BackHandler } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, SafeAreaView, Platform, BackHandler } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
-import { useCallback, useRef, useState, useEffect } from 'react';
-
-const APP_URL = 'https://masjid-os-git-main-musa-pro.vercel.app';
+import { useRef, useState, useEffect } from 'react';
+import { CONFIG } from './config';
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
 
   // Handle Android back button
   useEffect(() => {
@@ -29,12 +27,6 @@ export default function App() {
     setCanGoBack(navState.canGoBack);
   };
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    webViewRef.current?.reload();
-    setTimeout(() => setRefreshing(false), 1000);
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
@@ -45,37 +37,24 @@ export default function App() {
         </View>
       )}
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={['#10b981']}
-            tintColor="#10b981"
-          />
-        }
-      >
-        <WebView
-          ref={webViewRef}
-          source={{ uri: APP_URL }}
-          style={styles.webview}
-          onLoadStart={() => setIsLoading(true)}
-          onLoadEnd={() => setIsLoading(false)}
-          onNavigationStateChange={handleNavigationStateChange}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          startInLoadingState={true}
-          scalesPageToFit={true}
-          allowsBackForwardNavigationGestures={true}
-          pullToRefreshEnabled={true}
-          sharedCookiesEnabled={true}
-          thirdPartyCookiesEnabled={true}
-          cacheEnabled={true}
-          mediaPlaybackRequiresUserAction={false}
-        />
-      </ScrollView>
+      <WebView
+        ref={webViewRef}
+        source={{ uri: CONFIG.APP_URL }}
+        style={styles.webview}
+        onLoadStart={() => setIsLoading(true)}
+        onLoadEnd={() => setIsLoading(false)}
+        onNavigationStateChange={handleNavigationStateChange}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        startInLoadingState={true}
+        scalesPageToFit={true}
+        allowsBackForwardNavigationGestures={true}
+        pullToRefreshEnabled={true}
+        sharedCookiesEnabled={true}
+        thirdPartyCookiesEnabled={true}
+        cacheEnabled={true}
+        mediaPlaybackRequiresUserAction={false}
+      />
     </SafeAreaView>
   );
 }
@@ -84,12 +63,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    flex: 1,
   },
   webview: {
     flex: 1,
