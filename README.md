@@ -13,13 +13,14 @@
 - **Inventory (Inventaris)**: Track mosque assets, conditions, and values.
 - **Documents (Dokumen)**: centralized file storage for proposals and reports.
 - **Announcements (Pengumuman)**: Broadcast news to jamaah or internal staff.
-- **User Management**: Role-based access control (Admin, Brendahara, Sekretaris, etc.).
+- **User Management**: Role-based access control (Admin, Brendahara, Sekretaris, etc.) with modern reactive loading states for a smooth login experience.
 - **Audit Log**: Track all system changes for transparency.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **UI & State**: [React 19](https://react.dev/) (using modern hooks like `useActionState`)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Database**: [Neon](https://neon.tech/) (Serverless Postgres)
 - **Authentication**: [NextAuth.js v5](https://authjs.dev/)
