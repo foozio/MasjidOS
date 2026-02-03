@@ -1,16 +1,9 @@
 import { NextResponse } from 'next/server'
 import { getDonationsByTenant, createDonation } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
-import { z } from 'zod'
+import { DonationSchema } from '@/lib/validations'
 
 export const dynamic = 'force-dynamic'
-const CreateDonationSchema = z.object({
-    donorName: z.string().max(255).optional(),
-    donorEmail: z.string().email('Invalid email format').optional().or(z.literal('')),
-    amount: z.number().positive('Amount must be positive'),
-    isAnonymous: z.boolean().optional().default(false),
-    message: z.string().max(1000).optional(),
-})
 
 export async function GET(request: Request) {
     try {
@@ -34,7 +27,7 @@ export async function POST(request: Request) {
         if (!auth.isAuthenticated) return auth.response
 
         const body = await request.json()
-        const validated = CreateDonationSchema.safeParse(body)
+        const validated = DonationSchema.safeParse(body)
 
         if (!validated.success) {
             return NextResponse.json(

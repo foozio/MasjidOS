@@ -23,7 +23,8 @@
     "next-auth": "^5.0.0-beta.30",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "resend": "^6.9.1"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
