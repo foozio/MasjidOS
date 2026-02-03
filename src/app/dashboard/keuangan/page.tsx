@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { demoTransactions, demoCategories } from '@/lib/data'
 import { formatCurrency, formatDate, cn } from '@/lib/utils'
+import { calculateTotalIncome, calculateTotalExpense, calculateBalance } from '@/lib/finance-utils'
 import { Transaction } from '@/types'
 
 // Add Transaction Modal
@@ -207,13 +208,42 @@ export default function KeuanganPage() {
         return true
     })
 
-    const totalIncome = demoTransactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0)
-    const totalExpense = demoTransactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
-    const balance = totalIncome - totalExpense
+    const totalIncome = calculateTotalIncome(demoTransactions)
+    const totalExpense = calculateTotalExpense(demoTransactions)
+    const balance = calculateBalance(demoTransactions)
 
     const handleSaveTransaction = (tx: Partial<Transaction>) => {
         console.log('Saving transaction:', tx)
         // In real app, this would call API
+    }
+
+    const handleExport = () => {
+        const headers = ['Tanggal', 'Keterangan', 'Kategori', 'Tipe', 'Jumlah']
+        const rows = filteredTransactions.map(tx => {
+            const category = demoCategories.find(c => c.id === tx.categoryId)
+            return [
+                formatDate(tx.createdAt),
+                `"${tx.description.replace(/"/g, '""')}"`, // Escape quotes
+                category?.name || '-',
+                tx.type === 'income' ? 'Pemasukan' : 'Pengeluaran',
+                tx.amount
+            ]
+        })
+
+        const csvContent = [
+            headers.join(','),
+            ...rows.map(row => row.join(','))
+        ].join('\n')
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+        const link = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+        link.setAttribute('href', url)
+        link.setAttribute('download', `laporan-keuangan-${new Date().toISOString().split('T')[0]}.csv`)
+        link.style.visibility = 'hidden'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
     }
 
     return (
@@ -225,9 +255,9 @@ export default function KeuanganPage() {
                     <p className="text-neutral-500 mt-1">Kelola pemasukan dan pengeluaran masjid</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="btn-secondary">
+                    <button onClick={handleExport} className="btn-secondary">
                         <Download className="w-4 h-4" />
-                        Export
+                        Export CSV
                     </button>
                     <button onClick={() => setShowAddModal(true)} className="btn-primary">
                         <Plus className="w-4 h-4" />

@@ -5,7 +5,7 @@ import { AuthError } from 'next-auth';
 import { sql } from '@/lib/db';
 import { getUserMemberships } from '@/lib/queries';
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
+import { TransactionSchema, EventSchema, DocumentSchema, AssetSchema } from '@/lib/validations';
 
 
 export async function authenticate(
@@ -47,14 +47,6 @@ async function getActionContext() {
     const tenantId = mem.tenant_id || mem.tenantId
     return { userId: session.user.id, tenantId }
 }
-
-const TransactionSchema = z.object({
-    amount: z.coerce.number().positive(),
-    type: z.enum(['income', 'expense']),
-    categoryId: z.string().min(1),
-    description: z.string().min(1),
-    date: z.coerce.date(),
-})
 
 export async function createTransaction(formData: FormData) {
     try {
@@ -104,14 +96,6 @@ export async function createTransaction(formData: FormData) {
     }
 }
 
-const EventSchema = z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    maxVolunteers: z.coerce.number().int().nonnegative(),
-})
-
 export async function createEvent(formData: FormData) {
     try {
         const { userId, tenantId } = await getActionContext()
@@ -160,13 +144,6 @@ export async function createEvent(formData: FormData) {
     }
 }
 
-const DocumentSchema = z.object({
-    name: z.string().min(1),
-    category: z.string().min(1),
-    fileUrl: z.string().url(),
-    fileSize: z.coerce.number().int().nonnegative(),
-})
-
 export async function createDocument(formData: FormData) {
     try {
         const { userId, tenantId } = await getActionContext()
@@ -211,18 +188,6 @@ export async function createDocument(formData: FormData) {
         return { error: 'Failed to create document' }
     }
 }
-
-
-
-const AssetSchema = z.object({
-    name: z.string().min(1),
-    category: z.string().min(1),
-    condition: z.enum(['excellent', 'good', 'fair', 'poor']),
-    location: z.string().optional(),
-    value: z.coerce.number().nonnegative().optional(),
-    notes: z.string().optional(),
-    imageUrl: z.string().url().optional().or(z.literal('')),
-})
 
 export async function createAsset(formData: FormData) {
     try {

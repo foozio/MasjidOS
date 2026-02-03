@@ -1,27 +1,32 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
 import Link from 'next/link';
-import { Building2, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react';
+import { Building2, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { APP_NAME } from '@/lib/constants';
 
 // Submit Button Component
-function LoginButton() {
-    // We can use useFormStatus here if we extract this component
-    // But for now let's just use simple state or props if needed
-    // With useFormState, the pending state isn't directly exposed unless we use useFormStatus hook 
-    // nested inside the form.
+function LoginButton({ isPending }: { isPending: boolean }) {
     return (
-        <button className="btn-primary w-full btn-lg" type="submit">
-            Masuk <ArrowRight className="w-5 h-5 ml-2" />
+        <button className="btn-primary w-full btn-lg" type="submit" disabled={isPending}>
+            {isPending ? (
+                <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Memproses...
+                </>
+            ) : (
+                <>
+                    Masuk <ArrowRight className="w-5 h-5 ml-2" />
+                </>
+            )}
         </button>
     );
 }
 
 export default function LoginPage() {
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+    const [errorMessage, dispatch, isPending] = useActionState(authenticate, undefined);
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -103,7 +108,7 @@ export default function LoginPage() {
                         )}
 
                         {/* Submit */}
-                        <LoginButton />
+                        <LoginButton isPending={isPending} />
                     </form>
 
                     {/* Divider */}
@@ -120,8 +125,15 @@ export default function LoginPage() {
                     <form action={dispatch}>
                         <input type="hidden" name="email" value="admin@demo-masjid.com" />
                         <input type="hidden" name="password" value="password123" />
-                        <button className="btn-secondary w-full" type="submit">
-                            Akses Demo
+                        <button className="btn-secondary w-full" type="submit" disabled={isPending}>
+                            {isPending ? (
+                                <span className="flex items-center justify-center gap-2">
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    Memproses...
+                                </span>
+                            ) : (
+                                'Akses Demo'
+                            )}
                         </button>
                     </form>
 

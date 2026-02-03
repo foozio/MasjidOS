@@ -26,6 +26,7 @@ import { APP_NAME, DASHBOARD_NAV_ITEMS, SETTINGS_NAV_ITEMS } from '@/lib/constan
 import { getInitials } from '@/lib/utils';
 import { handleSignOut } from '@/lib/actions';
 import { User } from 'next-auth';
+import DashboardTour from './DashboardTour';
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {
@@ -245,6 +246,7 @@ export default function DashboardShell({
                 <Header onMenuClick={() => setSidebarOpen(true)} user={user} />
                 <main className="p-4 lg:p-6">{children}</main>
             </div>
+            <DashboardTour />
         </div>
     );
 }

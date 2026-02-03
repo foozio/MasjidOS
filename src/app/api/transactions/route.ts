@@ -2,15 +2,9 @@ import { NextResponse } from 'next/server'
 import { getTransactionsByTenant, getTransactionStats, createTransaction } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
 import { withRateLimit } from '@/lib/with-rate-limit'
-import { z } from 'zod'
+import { TransactionSchema } from '@/lib/validations'
 
 export const dynamic = 'force-dynamic'
-const CreateTransactionSchema = z.object({
-    type: z.enum(['income', 'expense']),
-    amount: z.number().positive('Amount must be positive'),
-    categoryId: z.string().uuid('Invalid category ID'),
-    description: z.string().min(1, 'Description is required').max(500),
-})
 
 async function handleGET(request: Request) {
     try {
@@ -47,7 +41,7 @@ async function handlePOST(request: Request) {
         if (!auth.isAuthenticated) return auth.response
 
         const body = await request.json()
-        const validated = CreateTransactionSchema.safeParse(body)
+        const validated = TransactionSchema.safeParse(body)
 
         if (!validated.success) {
             return NextResponse.json(

@@ -1,20 +1,9 @@
 import { NextResponse } from 'next/server'
 import { getEventsByTenant, createEvent } from '@/lib/queries'
 import { getAuthContext } from '@/lib/api-utils'
-import { z } from 'zod'
+import { EventSchema } from '@/lib/validations'
 
 export const dynamic = 'force-dynamic'
-const CreateEventSchema = z.object({
-    title: z.string().min(1, 'Title is required').max(200),
-    description: z.string().max(2000).optional(),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    location: z.string().max(300).optional(),
-    maxVolunteers: z.number().int().nonnegative().optional(),
-}).refine(data => data.endDate >= data.startDate, {
-    message: 'End date must be after start date',
-    path: ['endDate'],
-})
 
 export async function GET(request: Request) {
     try {
@@ -38,7 +27,7 @@ export async function POST(request: Request) {
         if (!auth.isAuthenticated) return auth.response
 
         const body = await request.json()
-        const validated = CreateEventSchema.safeParse(body)
+        const validated = EventSchema.safeParse(body)
 
         if (!validated.success) {
             return NextResponse.json(
