@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { demoTransactions, demoCategories } from '@/lib/data'
 import { formatCurrency, formatDate, cn } from '@/lib/utils'
+import { calculateTotalIncome, calculateTotalExpense, calculateBalance } from '@/lib/finance-utils'
 import { Transaction } from '@/types'
 
 // Add Transaction Modal
@@ -207,9 +208,9 @@ export default function KeuanganPage() {
         return true
     })
 
-    const totalIncome = demoTransactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0)
-    const totalExpense = demoTransactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
-    const balance = totalIncome - totalExpense
+    const totalIncome = calculateTotalIncome(demoTransactions)
+    const totalExpense = calculateTotalExpense(demoTransactions)
+    const balance = calculateBalance(demoTransactions)
 
     const handleSaveTransaction = (tx: Partial<Transaction>) => {
         console.log('Saving transaction:', tx)
