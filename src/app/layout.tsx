@@ -1,5 +1,18 @@
 import type { Metadata } from 'next'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
+
+const inter = Inter({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-inter',
+})
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-plus-jakarta-sans',
+})
 
 export const metadata: Metadata = {
     title: 'MasjidOS - Kelola Masjid Lebih Rapi, Transparan, dan Modern',
@@ -21,7 +34,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="id" className="scroll-smooth">
-            <body className="min-h-screen bg-neutral-50">
+            <body className={`min-h-screen bg-neutral-50 ${inter.variable} ${plusJakartaSans.variable} font-sans`}>
                 {children}
             </body>
         </html>

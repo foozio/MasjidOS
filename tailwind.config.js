@@ -76,8 +76,8 @@ module.exports = {
                 },
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
-                display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+                display: ['var(--font-plus-jakarta-sans)', 'Inter', 'system-ui', 'sans-serif'],
             },
             fontSize: {
                 'display-lg': ['3.5rem', { lineHeight: '1.1', fontWeight: '700' }],
